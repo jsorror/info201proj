@@ -66,24 +66,26 @@ cpmerge <- cpmerge %>%
 library(ggplot2)
 library(tidyverse)
 cpmerge <- cpmerge %>% 
-  filter(Country %in% c("Canada", "Sudan", "Mexico", "Australia", "Germany", "Japan"), na.rm = TRUE) %>%
+  filter(Country %in% c("United States", "Congo", "Brazil", "Australia", "Norway", "China"), na.rm = TRUE) %>%
   group_by(Country) %>% 
   mutate(avgco2 = mean(`CO2 Production`, na.rm = TRUE),
             avgpop = mean(Population, na.rm = TRUE))
 
 ggplot(cpmerge, aes(avgpop, avgco2, col = Country)) +
-  scale_color_manual(values = c("Sudan" = "skyblue", "Canada" = "pink", "Mexico" = "darkgreen", "Australia" = "maroon", "Germany" = "orange", "Japan" = "yellow")) +
+  scale_color_manual(values = c("Congo" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "Norway" = "orange", "China" = "yellow")) +
   geom_point(size = 3)
 ```
 
 ## Question 2
 
 ```{r}
+head(co2)
+head(co2l)
 co2l %>% 
   filter(Year %in% c(1990, 2021)) %>% 
-  filter(Country %in% c("Sudan", "Canada", "Mexico", "Australia", "Germany", "Japan")) %>% 
+  filter(Country %in% c("Congo", "United States", "Brazil", "Australia", "Norway", "China")) %>% 
   ggplot(aes(Year, `CO2 Production`, fill = Country)) +
-  scale_fill_manual(values = c("Sudan" = "skyblue", "Canada" = "pink", "Mexico" = "darkgreen", "Australia" = "maroon", "Germany" = "orange", "Japan" = "yellow")) +
+  scale_fill_manual(values = c("Congo" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "Norway" = "orange", "China" = "yellow")) +
   geom_col(position = "dodge", col = "black")
 ```
 
@@ -107,13 +109,13 @@ hpmerge <- inner_join(hdil2, popl2, by = c("Year", "Country"))
 
 ```{r}
 hpsum <- hpmerge %>%
-  filter(Country %in% c("Canada", "Sudan", "Mexico", "Australia", "Germany", "Japan"), na.rm = TRUE) %>%
+  filter(Country %in% c("United States", "Congo", "Brazil", "Australia", "Norway", "China"), na.rm = TRUE) %>%
   group_by(Country) %>%
   summarise(avghdi = mean(HDI, na.rm = TRUE),
             avgpop2 = mean(Population, na.rm = TRUE))
 
 ggplot(hpsum, aes(avgpop2, avghdi, col = Country)) +
-  scale_color_manual(values = c("Sudan" = "skyblue", "Canada" = "pink", "Mexico" = "darkgreen", "Australia" = "maroon", "Germany" = "orange", "Japan" = "yellow")) +
+  scale_color_manual(values = c("Congo" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "Norway" = "orange", "China" = "yellow")) +
   geom_point(size = 3)
 ```
 
@@ -126,9 +128,9 @@ hcmerge <- inner_join(hdil2, co2l2, by = c("Year", "Country"))
 ```{r}
 hcmerge %>% 
   filter(Year == "2021") %>% 
-  filter(Country %in% c("Canada", "Sudan", "Mexico", "Australia", "Germany", "Japan")) %>% 
+  filter(Country %in% c("United States", "Congo", "Brazil", "Australia", "Norway", "China")) %>% 
   ggplot(aes(`CO2 Production`, HDI, col = Country)) +
-  scale_color_manual(values = c("Sudan" = "skyblue", "Canada" = "pink", "Mexico" = "darkgreen", "Australia" = "maroon", "Germany" = "orange", "Japan" = "yellow")) +
+  scale_color_manual(values = c("Congo" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "Norway" = "orange", "China" = "yellow")) +
   geom_point(size = 3)
 ```
 
