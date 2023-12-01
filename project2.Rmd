@@ -1,0 +1,121 @@
+---
+title: "project2"
+output: html_document
+date: "2023-12-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Research Questions:
+
+1. How does Co2 production correlate with population of a country?
+
+
+2. How does Co2 production in different countries in 1990 differ from 2021?
+
+
+3. How does the Human Development Index (HDI) compare with the population of a country?
+
+
+4. How does HDI compare with Co2 production for countries in 2021?
+
+
+```{r}
+library(readr)
+co2 <- read_csv("../../../Downloads/co2_production.csv")
+hdi <- read_csv("../../../Downloads/human_development_index.csv")
+pop <- read_csv("../../../Downloads/World-population-by-countries-dataset.csv")
+```
+
+```{r}
+library(tidyverse)
+new_names <- sub("co2_prod_", "", names(co2))
+names(co2) <- new_names
+co2l <- co2 %>% pivot_longer(!c("ISO3", "Country", "hdicode", "region", "hdi_rank_2021"),
+                             names_to = "Year",
+                             values_to = "CO2 Production")
+pop <- pop %>% 
+  rename(Country = "Country Name")
+
+popl <- pop %>% pivot_longer(!c("Country", "Country Code"),
+                     names_to = "Year",
+                     values_to = "Population")
+```
+
+```{r}
+co2l2 <- co2l[, names(co2l) %in% c("Year", "CO2 Production", "Country")]
+popl2 <- popl[, names(popl) %in% c("Year", "Country", "Population")]
+cpmerge <- inner_join(co2l2, popl2, by = c("Year", "Country"))
+
+new_n <- sub("hdi_", "", names(hdi))
+names(hdi) <- new_n
+
+hdil <- hdi %>% pivot_longer(!c("ISO3", "Country", "hdicode", "region", "rank_2021"),
+                             names_to = "Year",
+                             values_to = "HDI")
+hdil2 <- hdil[, names(hdil) %in% c("Year", "HDI", "Country")]
+
+merge <- inner_join(cpmerge, hdil2, by = c("Year", "Country"))
+
+
+merge <- merge %>% 
+  mutate(co2index = ifelse(`CO2 Production` <= 22, 
+    "Low", ifelse(`CO2 Production` > 22 & `CO2 Production` < 44, "Middle", "High")))
+```
+
+## Question 1
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+merge <- merge %>% 
+  group_by(Country) %>% 
+  mutate(avgco2 = mean(`CO2 Production`, na.rm = TRUE)) %>% 
+  mutate(avgpop = mean(Population, na.rm = TRUE))
+
+merge %>% 
+  filter(Country %in% c("Nigeria", "United States", "Brazil", "Australia", "France", "China")) %>% 
+  ggplot(aes(avgpop, avgco2, col = Country)) +
+  scale_color_manual(values = c("Nigeria" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "France" = "orange", "China" = "yellow")) +
+  geom_point(size = 3)
+
+```
+
+## Question 2
+
+```{r}
+merge %>% 
+  filter(Year %in% c(1990, 2021)) %>% 
+  filter(Country %in% c("Nigeria", "United States", "Brazil", "Australia", "France", "China")) %>% 
+  ggplot(aes(Year, `CO2 Production`, fill = Country)) +
+  scale_fill_manual(values = c("Nigeria" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "France" = "orange", "China" = "yellow")) +
+  geom_col(position = "dodge", col = "black")
+```
+
+## Question 3
+
+```{r}
+mergesum <- merge %>%
+  filter(Country %in% c("United States", "Nigeria", "Brazil", "Australia", "France", "China"), na.rm = TRUE) %>%
+  group_by(Country) %>%
+  summarise(avghdi = mean(HDI, na.rm = TRUE),
+            avgpop2 = mean(Population, na.rm = TRUE))
+
+ggplot(mergesum, aes(avgpop2, avghdi, col = Country)) +
+  scale_color_manual(values = c("Nigeria" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "France" = "orange", "China" = "yellow")) +
+  geom_point(size = 3)
+```
+
+## Question 4
+
+```{r}
+merge %>% 
+  filter(Year == "2021") %>% 
+  filter(Country %in% c("United States", "Nigeria", "Brazil", "Australia", "France", "China")) %>% 
+  ggplot(aes(`CO2 Production`, HDI, col = Country)) +
+  scale_color_manual(values = c("Nigeria" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "France" = "orange", "China" = "yellow")) +
+  geom_point(size = 3)
+```
+
