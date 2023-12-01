@@ -56,13 +56,22 @@ hdil <- hdi %>% pivot_longer(!c("ISO3", "Country", "hdicode", "region", "rank_20
                              names_to = "Year",
                              values_to = "HDI")
 hdil2 <- hdil[, names(hdil) %in% c("Year", "HDI", "Country")]
+```
 
+```{r}
 merge <- inner_join(cpmerge, hdil2, by = c("Year", "Country"))
 
+merge <- merge %>% 
+  mutate(CO2Index = ifelse(`CO2 Production` <= 22, 
+    "Low", ifelse(`CO2 Production` > 22 & `CO2 Production` < 44, "Middle", "High")))
 
 merge <- merge %>% 
-  mutate(co2index = ifelse(`CO2 Production` <= 22, 
-    "Low", ifelse(`CO2 Production` > 22 & `CO2 Production` < 44, "Middle", "High")))
+  mutate(Year = as.numeric(Year))
+
+merge <- merge %>% 
+  group_by(Country) %>% 
+  mutate(AvgCO2 = mean(`CO2 Production`, na.rm = TRUE)) %>% 
+  mutate(AvgPop = mean(Population, na.rm = TRUE))
 ```
 
 ## Question 1
@@ -70,17 +79,12 @@ merge <- merge %>%
 ```{r}
 library(ggplot2)
 library(tidyverse)
-merge <- merge %>% 
-  group_by(Country) %>% 
-  mutate(avgco2 = mean(`CO2 Production`, na.rm = TRUE)) %>% 
-  mutate(avgpop = mean(Population, na.rm = TRUE))
-
 merge %>% 
   filter(Country %in% c("Nigeria", "United States", "Brazil", "Australia", "France", "China")) %>% 
-  ggplot(aes(avgpop, avgco2, col = Country)) +
+  ggplot(aes(AvgPop, AvgCO2, col = Country)) +
   scale_color_manual(values = c("Nigeria" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "France" = "orange", "China" = "yellow")) +
-  geom_point(size = 3)
-
+  geom_point(size = 3) +
+  labs(x = "Population", y = "CO2 Production", title = "Population vs. CO2 Production")
 ```
 
 ## Question 2
@@ -91,7 +95,8 @@ merge %>%
   filter(Country %in% c("Nigeria", "United States", "Brazil", "Australia", "France", "China")) %>% 
   ggplot(aes(Year, `CO2 Production`, fill = Country)) +
   scale_fill_manual(values = c("Nigeria" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "France" = "orange", "China" = "yellow")) +
-  geom_col(position = "dodge", col = "black")
+  geom_col(position = "dodge", col = "black") +
+  labs(title = "CO2 Production in 1990 vs. 2021")
 ```
 
 ## Question 3
@@ -105,7 +110,8 @@ mergesum <- merge %>%
 
 ggplot(mergesum, aes(avgpop2, avghdi, col = Country)) +
   scale_color_manual(values = c("Nigeria" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "France" = "orange", "China" = "yellow")) +
-  geom_point(size = 3)
+  geom_point(size = 3) +
+  labs(x = "Population", y = "Human Development Index (HDI)", title = "Population vs. Human Development Index (HDI)")
 ```
 
 ## Question 4
@@ -116,6 +122,7 @@ merge %>%
   filter(Country %in% c("United States", "Nigeria", "Brazil", "Australia", "France", "China")) %>% 
   ggplot(aes(`CO2 Production`, HDI, col = Country)) +
   scale_color_manual(values = c("Nigeria" = "skyblue", "United States" = "pink", "Brazil" = "darkgreen", "Australia" = "maroon", "France" = "orange", "China" = "yellow")) +
-  geom_point(size = 3)
+  geom_point(size = 3) +
+  labs(title = "CO2 Production vs. HDI in 2021")
 ```
 
