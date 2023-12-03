@@ -1,0 +1,47 @@
+---
+title: "datadocumentation"
+output: html_document
+date: "2023-12-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Data Documentation
+
+## Original Data Sources:
+
+We used two datasets to create our final merged one. These datasets are titled, “World
+Population by Countries” and “Global Socio-Economic and Environmental Indicators”. Our
+datasets originated from the platform “Kaggle”. The world population dataset is owned by the
+user, “ASHWIN.S” and was sourced from the website data.worldbank.org. The data was also
+cleaned using Pandas. The global socio-economic and environmental indicators dataset is owned
+by the user, “toriqul” and sourced from the Human Development Reports website, hdr.undp.org,
+and was collected with web scripting. 
+
+## Variables
+
+The variables we included in our final merged dataset are “Country”, which is
+the country’s name, “Year”, with years spanning from 1990 to 2021, “CO2
+Production”, depicting the total carbon emissions in a country in a certain
+year, “Population”, which states the total country population in a given year,
+“HDI”, which depicts the HDI for a country in a given year, “CO2Index”, which is
+a categorical variable that gives a certain index of a country’s CO2 level
+depending on where it falls in our caliber (22 and below = “Low”, 23 to 43 =
+“Middle”, and 44 and above = “High”), “AvgCO2”, which is a numerical variable 
+that gives the calculated average CO2 production for a certain country across
+all years, and finally, “AvgPop”, which is a numerical variable that gives the
+calculated average population for a certain country across all years.
+
+## Summary Statistics
+
+We have 5,376 observations in our dataset, and 8 columns. We excluded some outlier data from
+our merged dataset which had some regions listed under the "Countries" variable. These
+regions include the data for individual countries combined together, which would have altered
+the overall trend we were trying to extract across all countries. We excluded the regions
+named "World", "South Asia", and "Sub-Saharan Africa". There are a few missing values in
+the key variables for our dataset. The “CO2 Production” variable has 85 missing values, the
+“AvgCO2” variable has 64 missing values, the “Population” variable has 13 missing values, the
+“CO2Index” variable has 85 missing values, and the “HDI” variable has 583 missing values. 
