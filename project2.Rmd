@@ -21,16 +21,15 @@ Research Questions:
 
 4. How does HDI compare with Co2 production for countries in 2021?
 
-
 ```{r}
 library(readr)
 co2 <- read_csv("../../../../../../Downloads/co2_production.csv")
 hdi <- read_csv("../../../../../../Downloads/human_development_index.csv")
 pop <- read_csv("../../../../../../Downloads/World-population-by-countries-dataset.csv")
 ```
-```
 
 ```{r}
+
 library(tidyverse)
 new_names <- sub("co2_prod_", "", names(co2))
 names(co2) <- new_names
@@ -80,14 +79,18 @@ merge <- merge %>%
   mutate(AvgPop = mean(Population, na.rm = TRUE))
 
 
+write_csv(merge, "Merged_data.txt")
 ```
+
+```{r}
+merge <- read_delim("Merged_data.txt")
+```
+
 
 ## Question 1
 
+
 ```{r}
-options(scipen = 999)
-library(ggplot2)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-library(tidyverse)
 library(maps)
 world <- map_data("world") %>% 
   mutate(region = ifelse(region == "USA", "United States", region)) %>% 
@@ -96,7 +99,7 @@ world <- map_data("world") %>%
 mapping <- function(input_year){
   data_map <- world %>% 
     mutate(Country = region) %>% 
-    merge(data %>% filter(Year == input_year), by = "Country", all.x = TRUE) %>% 
+    merge(merge %>% filter(Year == input_year), by = "Country", all.x = TRUE) %>% 
     group_by(group) %>% 
     arrange(order)
   
@@ -128,7 +131,7 @@ library(gridExtra)
 mapping(2021)
 grid.arrange(co2map, avgpopmap, heights=c(6,6), ncol=1)
 ```
-```
+
 
 ## Question 2
 
@@ -168,4 +171,5 @@ merge %>%
   labs(title = "CO2 Production vs. HDI in 2021") +
   geom_smooth(show.legend = FALSE, se = FALSE, col = "black")
 ```
+
 
