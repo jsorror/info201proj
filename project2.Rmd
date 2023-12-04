@@ -126,7 +126,7 @@ mapping <- function(input_year){
 library(gridExtra)
 
 ```
-### 1990
+### 2021
 ```{r}
 mapping(2021)
 grid.arrange(co2map, avgpopmap, heights=c(6,6), ncol=1)
