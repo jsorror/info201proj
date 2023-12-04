@@ -125,8 +125,9 @@ merge %>%
   group_by(Country, Year) %>% 
   ggplot(aes(Country, `CO2 Production`, fill = factor(Year))) +
   geom_col(position = "dodge", col = "black") +
-  labs(title = "CO2 Production in 1990 vs. 2021", fill = "Year") +
-  scale_y_continuous(labels = scales::label_number_si())
+  labs(title = "CO2 Production in 1990 vs. 2019", fill = "Year") +
+  scale_y_continuous(labels = scales::label_number_si()) +
+  scale_x_discrete(limits = c("China","United States","Brazil", "Nigeria", "Russian Federation", "Australia"))
 ```
 
 ## Question 3
@@ -153,7 +154,7 @@ merge %>%
   filter(Year == 2019) %>% 
   ggplot(aes(`CO2 Production`, HDI, col = Country)) +
   geom_point(size = 3, show.legend = FALSE) +
-  labs(title = "CO2 Production vs. HDI in 2021") +
+  labs(title = "CO2 Production vs. HDI in 2019") +
   geom_smooth(show.legend = FALSE, se = FALSE, col = "black") +
   scale_x_continuous(labels = scales::label_number_si())
 ```
