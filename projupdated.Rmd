@@ -127,7 +127,7 @@ merge %>%
   geom_col(position = "dodge", col = "black") +
   labs(title = "CO2 Production in 1990 vs. 2019", fill = "Year") +
   scale_y_continuous(labels = scales::label_number_si()) +
-  scale_x_discrete(limits = c("China","United States","Brazil", "Nigeria", "Russian Federation", "Australia"))
+  scale_x_discrete(limits = c("Australia", "Russian Federation", "Nigeria", "Brazil", "United States", "China"))
 ```
 
 ## Question 3
