@@ -1,18 +1,17 @@
 ---
-title: "j"
+title: "project2"
 output: html_document
-date: "2023-12-04"
+date: "2023-12-01"
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
 library(readr)
-co2 <- read_csv("Data/fproj/co2_emissions_kt_by_country.csv")
-hdi <- read_csv("Data/fproj/human_development_index.csv")
-pop <- read_csv("Data/fproj/World-population-by-countries-dataset.csv")
+co2 <- read_csv("../co2_emissions_kt_by_country.csv")
+hdi <- read_csv("../human_development_index.csv")
+pop <- read_csv("../World-population-by-countries-dataset.csv")
 ```
 ```{r}
 library(tidyverse)
@@ -151,5 +150,6 @@ merge %>%
   filter(`CO2 Production` < 10707120) %>% 
   ggplot(aes(`CO2 Production`, HDI, col = Country)) +
   geom_point(size = 3, show.legend = FALSE) +
-  labs(title = "CO2 Production vs. HDI in 2021")
-```
+  labs(title = "CO2 Production vs. HDI in 2021")+
+  geom_smooth(show.legend = FALSE, se = FALSE, col = "black")
+``````
