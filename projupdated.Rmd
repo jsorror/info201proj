@@ -1,0 +1,152 @@
+---
+title: "j"
+output: html_document
+date: "2023-12-04"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readr)
+co2 <- read_csv("../../../Downloads/co2_emissions_kt_by_country.csv")
+hdi <- read_csv("../../../Downloads/human_development_index.csv")
+pop <- read_csv("../../../Downloads/World-population-by-countries-dataset.csv")
+```
+```{r}
+library(tidyverse)
+pop <- pop %>% 
+  rename(Country = "Country Name")
+
+
+popl <- pop %>% pivot_longer(!c("Country", "Country Code"),
+                     names_to = "Year",
+                     values_to = "Population")
+popl <- popl %>% 
+  mutate(Year = as.numeric(Year))
+
+co2 <- co2 %>% 
+  rename(Country = "country_name") %>% 
+  rename(Year = "year") %>% 
+  rename(`CO2 Production` = "value")
+
+co2l <- co2[, names(co2) %in% c("Year", "Country", "CO2 Production")]
+popl2 <- popl[, names(popl) %in% c("Year", "Country", "Population")]
+cpmerge <- inner_join(co2l, popl2, by = c("Year", "Country"))
+
+new_n <- sub("hdi_", "", names(hdi))
+names(hdi) <- new_n
+
+hdil <- hdi %>% pivot_longer(!c("ISO3", "Country", "hdicode", "region", "rank_2021"),
+                             names_to = "Year",
+                             values_to = "HDI")
+hdil2 <- hdil[, names(hdil) %in% c("Year", "HDI", "Country")]
+```
+
+```{r}
+hdil2 <-  hdil2 %>% 
+  mutate(Year = as.numeric(Year))
+
+merge <- inner_join(cpmerge, hdil2, by = c("Year", "Country"))
+
+merge <- merge %>% 
+  filter(!(Country == "World" | Country == "South Asia" | Country == "Sub-Saharan Africa"))
+
+merge <- merge %>% 
+  mutate(CO2Index = ifelse(`CO2 Production` <= 3569073, 
+    "Low", ifelse(`CO2 Production` > 3569073 & `CO2 Production` < 7138146, "Middle", "High")))
+
+merge <- merge %>% 
+  group_by(Country) %>% 
+  mutate(AvgCO2 = mean(`CO2 Production`, na.rm = TRUE)) %>% 
+  mutate(AvgPop = mean(Population, na.rm = TRUE))
+
+write_csv(merge, "Merged_data.txt")
+```
+
+```{r}
+merge <- read_delim("Merged_data.txt")
+```
+
+## Question 1
+
+```{r}
+library(maps)
+world <- map_data("world") %>% 
+  mutate(region = ifelse(region == "USA", "United States", region)) %>% 
+  mutate(region = ifelse(region == "Russia", "Russian Federation", region))
+
+mapping <- function(input_year){
+  data_map <- world %>% 
+    mutate(Country = region) %>% 
+    merge(merge %>% filter(Year == input_year), by = "Country", all.x = TRUE) %>% 
+    group_by(group) %>% 
+    arrange(order)
+
+  co2map <- ggplot(data_map, aes(long, lat, group=group, fill=`CO2 Production`)) +
+    geom_polygon(col="black", linewidth=0.3) +
+    scale_fill_continuous(low = "cadetblue1", high = "blue4", limits = c(0,10707220), labels = scales::label_number_si()) +
+    scale_y_continuous(breaks = c()) +
+    scale_x_continuous(breaks=c()) +
+    theme_void() +
+    coord_quickmap()
+    
+  avgpopmap <- ggplot(data_map, aes(long, lat, group=group, fill=`Population`)) +
+    geom_polygon(col="black", linewidth=0.3) +
+    scale_fill_continuous(low = "cadetblue1", high = "blue4", limits = c(0, 2*10^9), labels = scales::label_number_si()) +
+    scale_y_continuous(breaks = c()) +
+    scale_x_continuous(breaks=c()) +
+    theme_void() +
+    coord_quickmap()
+
+  assign("co2map", co2map, envir = parent.frame())
+  assign("avgpopmap", avgpopmap, envir = parent.frame())
+}
+```
+
+```{r}
+library(gridExtra)
+mapping(2019)
+grid.arrange(co2map, avgpopmap, heights=c(6,6), ncol=1)
+```
+
+## Question 2
+
+```{r}
+merge %>% 
+  filter(Year %in% c(1990, 2019)) %>% 
+  filter(Country %in% c("Nigeria", "United States", "Brazil", "Australia", "Russian Federation", "China")) %>% 
+  group_by(Country, Year) %>% 
+  ggplot(aes(Country, `CO2 Production`, fill = factor(Year))) +
+  geom_col(position = "dodge", col = "black") +
+  labs(title = "CO2 Production in 1990 vs. 2021", fill = "Year") 
+```
+## Question 3
+
+```{r}
+## summarization dataset
+mergesum <- merge %>%
+  group_by(Country) %>%
+  summarise(avghdi = mean(HDI, na.rm = TRUE),
+            avgpop2 = mean(Population, na.rm = TRUE))
+head(mergesum)
+
+ggplot(mergesum, aes(avgpop2, avghdi, col = Country)) +
+  geom_point(size = 3, show.legend = FALSE) +
+  labs(x = "Population", y = "Human Development Index (HDI)", title = "Population vs. Human Development Index (HDI)") + 
+  geom_smooth(method = lm, se = FALSE, show.legend = FALSE, col = "black") +
+  scale_x_continuous(labels = scales::label_number_si())
+```
+
+## Question 4
+
+```{r}
+merge %>% 
+  filter(Year == 2019) %>% 
+  filter(`CO2 Production` < 10707120) %>% 
+  ggplot(aes(`CO2 Production`, HDI, col = Country)) +
+  geom_point(size = 3, show.legend = FALSE) +
+  labs(title = "CO2 Production vs. HDI in 2021") +
+  geom_smooth(show.legend = FALSE, se = FALSE, col = "black")
+```
