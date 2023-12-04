@@ -1,18 +1,20 @@
 ---
-title: "project2"
+title: "j"
 output: html_document
-date: "2023-12-01"
+date: "2023-12-04"
 ---
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
 library(readr)
-co2 <- read_csv("../co2_emissions_kt_by_country.csv")
-hdi <- read_csv("../human_development_index.csv")
-pop <- read_csv("../World-population-by-countries-dataset.csv")
+co2 <- read_csv("../../../Downloads/co2_emissions_kt_by_country.csv")
+hdi <- read_csv("../../../Downloads/human_development_index.csv")
+pop <- read_csv("../../../Downloads/World-population-by-countries-dataset.csv")
 ```
+
 ```{r}
 library(tidyverse)
 pop <- pop %>% 
@@ -123,8 +125,10 @@ merge %>%
   group_by(Country, Year) %>% 
   ggplot(aes(Country, `CO2 Production`, fill = factor(Year))) +
   geom_col(position = "dodge", col = "black") +
-  labs(title = "CO2 Production in 1990 vs. 2021", fill = "Year") 
+  labs(title = "CO2 Production in 1990 vs. 2021", fill = "Year") +
+  scale_y_continuous(labels = scales::label_number_si())
 ```
+
 ## Question 3
 
 ```{r}
@@ -147,9 +151,9 @@ ggplot(mergesum, aes(avgpop2, avghdi, col = Country)) +
 ```{r}
 merge %>% 
   filter(Year == 2019) %>% 
-  filter(`CO2 Production` < 10707120) %>% 
   ggplot(aes(`CO2 Production`, HDI, col = Country)) +
   geom_point(size = 3, show.legend = FALSE) +
-  labs(title = "CO2 Production vs. HDI in 2021")+
-  geom_smooth(show.legend = FALSE, se = FALSE, col = "black")
-``````
+  labs(title = "CO2 Production vs. HDI in 2021") +
+  geom_smooth(show.legend = FALSE, se = FALSE, col = "black") +
+  scale_x_continuous(labels = scales::label_number_si())
+```
