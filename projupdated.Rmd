@@ -10,9 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(readr)
-co2 <- read_csv("../../../Downloads/co2_emissions_kt_by_country.csv")
-hdi <- read_csv("../../../Downloads/human_development_index.csv")
-pop <- read_csv("../../../Downloads/World-population-by-countries-dataset.csv")
+co2 <- read_csv("Data/fproj/co2_emissions_kt_by_country.csv")
+hdi <- read_csv("Data/fproj/human_development_index.csv")
+pop <- read_csv("Data/fproj/World-population-by-countries-dataset.csv")
 ```
 ```{r}
 library(tidyverse)
@@ -29,26 +29,30 @@ popl <- popl %>%
 co2 <- co2 %>% 
   rename(Country = "country_name") %>% 
   rename(Year = "year") %>% 
-  rename(`CO2 Production` = "value")
+  rename(`CO2 Production` = "value") %>% 
+  rename(`Country Code` = "country_code")
 
-co2l <- co2[, names(co2) %in% c("Year", "Country", "CO2 Production")]
-popl2 <- popl[, names(popl) %in% c("Year", "Country", "Population")]
-cpmerge <- inner_join(co2l, popl2, by = c("Year", "Country"))
+co2l <- co2[, names(co2) %in% c("Year", "CO2 Production", "Country Code")]
+popl2 <- popl[, names(popl) %in% c("Year", "Country", "Population", "Country Code")]
+cpmerge <- inner_join(co2l, popl2, by = c("Year", "Country Code"))
 
 new_n <- sub("hdi_", "", names(hdi))
 names(hdi) <- new_n
 
-hdil <- hdi %>% pivot_longer(!c("ISO3", "Country", "hdicode", "region", "rank_2021"),
+hdi <- hdi %>% 
+  rename(`Country Code` = "ISO3") 
+
+hdil <- hdi %>% pivot_longer(!c("Country Code", "Country", "hdicode", "region", "rank_2021"),
                              names_to = "Year",
                              values_to = "HDI")
-hdil2 <- hdil[, names(hdil) %in% c("Year", "HDI", "Country")]
+hdil2 <- hdil[, names(hdil) %in% c("Year", "HDI", "Country Code")]
 ```
 
 ```{r}
 hdil2 <-  hdil2 %>% 
   mutate(Year = as.numeric(Year))
 
-merge <- inner_join(cpmerge, hdil2, by = c("Year", "Country"))
+merge <- inner_join(cpmerge, hdil2, by = c("Year", "Country Code"))
 
 merge <- merge %>% 
   filter(!(Country == "World" | Country == "South Asia" | Country == "Sub-Saharan Africa"))
@@ -147,6 +151,5 @@ merge %>%
   filter(`CO2 Production` < 10707120) %>% 
   ggplot(aes(`CO2 Production`, HDI, col = Country)) +
   geom_point(size = 3, show.legend = FALSE) +
-  labs(title = "CO2 Production vs. HDI in 2021") +
-  geom_smooth(show.legend = FALSE, se = FALSE, col = "black")
+  labs(title = "CO2 Production vs. HDI in 2021")
 ```
