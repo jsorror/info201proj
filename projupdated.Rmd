@@ -10,13 +10,19 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 ```{r}
 library(readr)
-co2 <- read_csv("../../../Downloads/co2_emissions_kt_by_country.csv")
-hdi <- read_csv("../../../Downloads/human_development_index.csv")
-pop <- read_csv("../../../Downloads/World-population-by-countries-dataset.csv")
+library(tidyverse)
+library(maps)
+library(gridExtra)
+```
+
+
+```{r}
+co2 <- read_csv("Data/fproj/co2_emissions_kt_by_country.csv")
+hdi <- read_csv("Data/fproj/human_development_index.csv")
+pop <- read_csv("Data/fproj/World-population-by-countries-dataset.csv")
 ```
 
 ```{r}
-library(tidyverse)
 pop <- pop %>% 
   rename(Country = "Country Name")
 
@@ -77,7 +83,6 @@ merge <- read_delim("Merged_data.txt")
 ### Figure 1
 
 ```{r}
-library(maps)
 world <- map_data("world") %>% 
   mutate(region = ifelse(region == "USA", "United States", region)) %>% 
   mutate(region = ifelse(region == "Russia", "Russian Federation", region))
@@ -111,7 +116,6 @@ mapping <- function(input_year){
 ```
 
 ```{r}
-library(gridExtra)
 mapping(2019)
 grid.arrange(co2map, avgpopmap, heights=c(6,6), ncol=1)
 ```
