@@ -9,15 +9,37 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 ## Introduction
 
-Our project focuses on the trend of CO2 production in every country for the last 30 years and how it might be related to different factors, such as the human development index and population. CO2 has been a conversation of worry for quite some time since it affects our planet and everyone living on it which is why it’s an interesting and important topic. 
+Our project focuses on the trend of CO2 production in every country for the last 30 years and how it might be related to different 
+factors, such as the human development index and population. CO2 has been a conversation of worry for quite some time since 
+it affects our planet and everyone living on it which is why it’s an interesting and important topic. 
 
-Everyone has heard about climate change and global warming. Climate change are long term changes in temperatures and weather patterns and one of the results of climate change is global warming. Global warming is what it says, the warming of the globe, Earth. One of the main factors that contribute to global warming is the amount of CO2 in the atmosphere. How this works is that CO2 is a greenhouse gas, along with H2O, and greenhouse gasses trap and absorb heat which results in the greenhouse effect. The greenhouse effect is when the CO2 and water vapor in the atmosphere absorb the infrared energy from Earth and instead of emitting it back to space, it gets emitted back to Earth and hence, the warming of Earth. It’s essentially a big blanket covering the Earth. We know that CO2 is one of the main perpetrators of climate change and global warming so if we produce more CO2 then the greenhouse effect will become more severe.
+Everyone has heard about climate change and global warming. Climate change are long term changes in temperatures and weather patterns and
+one of the results of climate change is global warming. Global warming is what it says, the warming of the globe, Earth. One of the main 
+factors that contribute to global warming is the amount of CO2 in the atmosphere. How this works is that CO2 is a greenhouse gas, along 
+with H2O, and greenhouse gasses trap and absorb heat which results in the greenhouse effect. The greenhouse effect is when the CO2 and 
+water vapor in the atmosphere absorb the infrared energy from Earth and instead of emitting it back to space, it gets emitted back to Earth
+and hence, the warming of Earth. It’s essentially a big blanket covering the Earth. We know that CO2 is one of the main perpetrators of 
+climate change and global warming so if we produce more CO2 then the greenhouse effect will become more severe.
 
- In the past few centuries, the emission of CO2 has increased by 50% and it’s basically all because of human activities. Mostly fossil fuel burning, deforestation and cement production which is why global warming is such a hot topic nowadays. The more CO2 produced, the more intense global warming is and this impacts the human health,  environment, precipitation patterns, and sea level everywhere on earth since CO2 is well mixed in the atmosphere and it remains in the atmosphere for thousands of years.
+ In the past few centuries, the emission of CO2 has increased by 50% and it’s basically all because of human activities. Mostly fossil 
+fuel burning, deforestation and cement production which is why global warming is such a hot topic nowadays. The more CO2 produced, the 
+more intense global warming is and this impacts the human health, environment, precipitation patterns, and sea level everywhere on Earth
+since CO2 is well mixed in the atmosphere and it remains in the atmosphere for thousands of years.
 
-As mentioned before, our project focuses on CO2 and how it is affected by human development and population. More specifically we delve into the correlation between CO2 production and population of a country since it is known that people are the main contributors for the CO2 in the atmosphere, so how does the population affect it? Next, we compare the CO2 production in a country from each continent from 1990 and 2021. This is to see how CO2 has changed in the past 30 years and how it is different for each country. Then we compare the Human Development Index (HDI) and the population of a country to observe how population can affect human development or if it affects it all. Finally, we compare HDI with the CO2 production in 2021 since cement production and fossil fuel burning are strong contributors of the CO2 in the atmosphere. So, how does the development of humans correlate with the CO2 production, if there is any?
+As mentioned before, our project focuses on CO2 and how it is affected by human development and population. More specifically we delve into
+the correlation between CO2 production and population of a country since it is known that people are the main contributors for the CO2 in
+the atmosphere, so how does the population affect it? Next, we compare the CO2 production in a country from each continent from 1990 and 
+2021. This is to see how CO2 has changed in the past 30 years and how it is different for each country. Then we compare the Human 
+Development Index (HDI) and the population of a country to observe how population can affect human development or if it affects it all.
+Finally, we compare HDI with the CO2 production in 2021 since cement production and fossil fuel burning are strong contributors of the CO2 
+in the atmosphere. So, how does the development of humans correlate with the CO2 production, if there is any?
 
-CO2 production and human development are interesting topics and are something everyone needs to know about because this process of climate change and global warming affects everyone on Earth and the planet itself. We are the main perpetrators of global warming and we are harming ourselves in the long run if we don’t consider the consequences of our actions. Reading our report will help researchers, or anyone, understand some of the causes and effects that human development and population have on CO2 production and they can use this to figure out ways to decrease the numbers in the long run and potentially save the Earth and human health.
+CO2 production and human development are interesting topics and are something everyone needs to know about because this process of climate
+change and global warming affects everyone on Earth and the planet itself. We are the main perpetrators of global warming and we are 
+harming ourselves in the long run if we don’t consider the consequences of our actions. Reading our report will help researchers, or 
+anyone, understand some of the causes and effects that human development and population have on CO2 production and they can use this to 
+figure out ways to decrease the numbers in the long run and potentially save the Earth and human health.
+
 
 ## Data
 
