@@ -7,7 +7,8 @@ relate to it over the years 1990 and 2019. CO2 production has been a big problem
 in our world for many years as CO2 emissions are directly related to global 
 warming. Humans are the main source for the CO2 emissions in the world, from 
 mostly fossil fuels deforestation and cement production. The more CO2 we produce,
-the more severe global warming will get. 
+the more severe global warming will get.
+
   In our data, by using various different graphs, we compare CO2, population, and
 HDI. First, we compare CO2 with population in 2019 to see the correlation between
 them if there is one. We found that there is not a definite trend between
