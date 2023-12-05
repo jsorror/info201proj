@@ -25,8 +25,7 @@ humans are the main source of CO2 emissions but just because after a certain poi
 the effects from CO2 emissions will negatively impact the environment and decrease
 the development.
 
-<img width="667" alt="q4" src="https://github.com/jsorror/info201proj/assets/151589206/e3eb6bc8-7487-46a9-9cb5-89392042eea7">
-
+<img width="769" alt="Screen Shot 2023-12-05 at 2 36 17 PM" src="https://github.com/jsorror/info201proj/assets/151590256/9c1f0504-25bb-4b9d-9a5e-2c704edafadb">
 
 ## Who is the audience?
 
