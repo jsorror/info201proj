@@ -1,0 +1,243 @@
+---
+title: "finalproj"
+output: html_document
+date: "2023-12-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Final Report
+
+## Introduction
+
+Our project focuses on the trend of CO2 production in every country for the last 30 years and how it might be related to different 
+factors, such as the human development index and population. CO2 has been a conversation of worry for quite some time since 
+it affects our planet and everyone living on it which is why it’s an interesting and important topic. 
+
+Everyone has heard about climate change and global warming. Climate change are long term changes in temperatures and weather patterns and
+one of the results of climate change is global warming. Global warming is what it says, the warming of the globe, Earth. One of the main 
+factors that contribute to global warming is the amount of CO2 in the atmosphere. How this works is that CO2 is a greenhouse gas, along 
+with H2O, and greenhouse gasses trap and absorb heat which results in the greenhouse effect. The greenhouse effect is when the CO2 and 
+water vapor in the atmosphere absorb the infrared energy from Earth and instead of emitting it back to space, it gets emitted back to Earth
+and hence, the warming of Earth. It’s essentially a big blanket covering the Earth. We know that CO2 is one of the main perpetrators of 
+climate change and global warming so if we produce more CO2 then the greenhouse effect will become more severe.
+
+ In the past few centuries, the emission of CO2 has increased by 50% and it’s basically all because of human activities. Mostly fossil 
+fuel burning, deforestation and cement production which is why global warming is such a hot topic nowadays. The more CO2 produced, the 
+more intense global warming is and this impacts the human health, environment, precipitation patterns, and sea level everywhere on Earth
+since CO2 is well mixed in the atmosphere and it remains in the atmosphere for thousands of years.
+
+As mentioned before, our project focuses on CO2 and how it is affected by human development and population. More specifically we delve into
+the correlation between CO2 production and population of a country since it is known that people are the main contributors for the CO2 in
+the atmosphere, so how does the population affect it? Next, we compare the CO2 production in a country from each continent from 1990 and 
+2021. This is to see how CO2 has changed in the past 30 years and how it is different for each country. Then we compare the Human 
+Development Index (HDI) and the population of a country to observe how population can affect human development or if it affects it all.
+Finally, we compare HDI with the CO2 production in 2021 since cement production and fossil fuel burning are strong contributors of the CO2 
+in the atmosphere. So, how does the development of humans correlate with the CO2 production, if there is any?
+
+CO2 production and human development are interesting topics and are something everyone needs to know about because this process of climate
+change and global warming affects everyone on Earth and the planet itself. We are the main perpetrators of global warming and we are 
+harming ourselves in the long run if we don’t consider the consequences of our actions. Reading our report will help researchers, or 
+anyone, understand some of the causes and effects that human development and population have on CO2 production and they can use this to 
+figure out ways to decrease the numbers in the long run and potentially save the Earth and human health.
+
+
+## Data
+
+We used our datasets, [“World Population by Countries”](https://www.kaggle.com/datasets/kaggleashwin/population-dataset), [“Global Socio-
+Economic and Environmental Indicators”](https://www.kaggle.com/datasets/toriqulstu/global-socio-economic-and-environmental-indicators), and
+[“CO2 Emissions”](https://www.kaggle.com/datasets/ulrikthygepedersen/co2-emissions-by-country) to illustrate the relationship between CO2 
+Production levels and Human Development Index (HDI), as well as how they can correlate with and introduce different dynamics when compared 
+to the population of a country. Additionally, we aimed to understand how these variables could also differ when looking at the difference 
+between years 1990 and 2019. Our datasets originated from the platform [“Kaggle”](http://kaggle.com). The world population dataset is owned 
+by the user, “ASHWIN.S” and was sourced from the website http://data.worldbank.org. The data was also cleaned using Pandas. The global 
+socio-economic and environmental indicators dataset is owned by the user, “toriqul” and sourced from the Human Development Reports website,
+http://hdr.undp.org, and was collected with web scripting. The CO2 Emissions dataset is owned by the user, Urik Thyge Pedersen, and was 
+sourced from the website https://data.nasdaq.com/databases/WB/data as well as the United Nations Framework Convention on Climate Change 
+(UNFCCC) and the International Energy Agency (IEA). This data was available for free on Kaggle to anyone who wished to use it. The only 
+observable restriction was making an account on Kaggle in order to gain access to download the data files. Although there was no explicit 
+statement on what purpose the data should be used for in the world population dataset, the global socio-economic and environmental 
+indicators dataset detailed that it would be valuable for researchers, analysts, and policymakers interested in various aspects of global 
+development and sustainability. Additionally, there was included input from users who downloaded the dataset, with most saying they used it 
+for learning purposes, and a few stating that it was used for research. The CO2 emissions dataset stated that it can be used by 
+researchers, policymakers, and the general public to gain insight into the relative contributions of different countries to global CO2 
+emissions. It also declared that it could be used to monitor changes in emissions over time and to assess the effectiveness of climate 
+policies. The world population dataset contains every nation’s population from 1960 to 2021. The variables consist of the country name, its
+three-letter country code, and the year (1960 to 2021). The global socio-economic and environmental indicators dataset contains four 
+separate files that provide data on different sets of information: CO2 Production, Gross National Income (GNI) per Capita, Human 
+Development Index (HDI), and Life Expectancy by Birth. We only utilized the HDI data file for our project. The file covers the Human 
+Development Index from year 1990 to 2021 along with associated metrics, offering insights into socio-economic development trends across 
+countries and regions. The variables consist of the country name, the three-letter country code, the HDI code, the region, the HDI rank for 
+the year 2021, and the HDI for each year from 1990 to 2021. Its intended uses are to analyze long-term trends in HDI scores and rankings, 
+investigate the relationship between HDI and other socio-economic factors, and assess regional disparities in human development. The CO2 
+emissions dataset covers the amount of CO2 emitted from each country from 1960 to 2019. The variables consist of the three-letter country 
+code, the country name, the year, and “value”, as in the amount of CO2 emitted by each country in kilotons (kt). There were no data quality
+issues that we encountered when dealing with the datasets; apart from identifying the specific names of countries we wanted to plot, 
+everything was discovered and sought out clearly.
+
+
+In our final dataset, each row represents the CO2 production levels, population, HDI, and the CO2 Index for a country in a certain year. We 
+have 4,980 observations in our dataset. The relevant variables are “Country”, which is the country’s name, “Year”, with years spanning from 
+1990 to 2021, “CO2 Production”, depicting the total carbon emissions in a country in a certain year, “Population”, which states the total 
+country population in a given year, “HDI”, which depicts the HDI for a country in a given year, “CO2Index”, which is a categorical variable 
+that gives a certain index of a country’s CO2 level depending on where it falls in our caliber (3,569,073 kt and below = “Low”, 3,569,074 
+kt to 7,138,146 = “Middle”, and 7,138,147 kt and above = “High”), “AvgCO2”, which is a numerical variable that gives the calculated average 
+CO2 production for a certain country across all years, and finally, “AvgPop”, which is a numerical variable that gives the calculated 
+average population for a certain country across all years. Additionally, we created a summarized dataset called “mergesum” containing the 
+average HDI levels for each country and the average population for each country. There are a few missing values in the key variables for 
+our dataset. The “Population” variable has 11 missing values, and the “HDI” variable has 519 missing values. Although we had a few missing 
+values, which may have deterred the quality of our dataset, it didn’t hinder our ability to plot the relationships we wanted to. 
+Additionally, our idea of creating the “AvgPop” variable in order to plot the average values of this data allowed the missing values to 
+decrease significantly, which made it easier for us to plot the relationships for the countries we chose.
+
+
+## Methods
+
+For this project from the three datasets, we decided to hone in on three subjects of information about countries around the world. These 
+are Co2 Production, Human Development Index, and Population which each came from separate datasets. From each of these datasets we opted to 
+take only one variable to be included for the merged final product in order to be as clean as possible for our final data manipulation to 
+create our plots. We also appreciated the very raw variables we chose because they were easier to manipulate into the secondary 
+(categorical/numerical) variables required for the project.
+
+For all of our datasets we need to pivot them from the wide form they currently are in into long form to cleanly display more variables. 
+We’ll make what was once many columns of individual years into one column with all of the years. This variable year in addition to the 
+country name variable that we also have access to in all datasets will be the common variables that allows us to merge it all into one. 
+First in the case of Co2 however we must manipulate the year variable naming convention that originally uses a prefix “co2_prod_” before 
+the actual year information. The same must be done with the human development index dataset that has a similar “hdi_” prefix in front of 
+its column names. To do this we use sub() and assignment to names(<data>) to replace those prefixes with empty (“”) strings before any 
+pivoting of the respective datasets. In the case of the population dataset we also use rename() to rename the variable “Country Name” to be 
+“Country” also to match the other datasets’ naming convention for that variable. This common naming convention for the two variables (year 
+and country) is essential to properly merge the datasets as the code needs the exact same variable name to identify an overlap in different 
+datasets.
+
+Next we need to pivot_longer each of these datasets and remove any extraneous variables not useful to us. For each of these datasets we 
+only focused on the yearly information recorded for each country in its respective subject. For co2 this is production every year so we 
+create a second version of this dataset in longer form, then after that we create a third that strips away extraneous variables. These 
+extraneous variables are ISO3 code, hdi code, region, and hdi rank for 2021. This makes the data cleaner as information like region and 
+ISO3 code will be the same for each country no matter the year and just takes up space in this longer format without additional information 
+provided. This limits us however as we are now unable to make plots based on region for example to group countries, something we have to 
+work around as a limitation. The same is done for population (removing country code) and human development index (removing ISO3, hdi code, 
+region, and rank in 2021). 
+
+Finally, we use inner_join() to first combine the co2 and population dataset, then combine that merged dataset with the hdi data into one 
+final one. In doing so we only keep data that has both the same country name and a year of data on file. This means that countries that 
+have varied naming conventions between the datasets are not included in the final merge dataset (for example “Vietnam” vs “Viet Nam”). This 
+was the easiest way to combine the data but makes it so that we don’t have as complete of data as we could, but we work around this by only 
+focusing on specific countries that we know we have adequate data on for our plots later on. With this final dataset we make some final 
+decisions. We create a co2 index variable (categorical) and an average population variable (numerical) to additionally measure our data. We 
+do this ignoring rows with N/A values in the respective original variable. We also make sure to mutate() our year variable to be numeric as 
+opposed to a string.
+
+As for our sample chosen, when making out plots we decided to focus only on some specific countries as mentioned before. This is because 
+with the country loss in merging, any overall plotting would be difficult to be sure of accuracy. Also that much information is very 
+overwhelming visually with the couple hundred countries we have data on. We chose one country from each continent (Australia, Brazil, 
+China, France, Nigeria, and the United States) which are all nations that have the highest population per continent which allows us to 
+better analyze co2 production in all continents.
+
+## Results
+
+Our first question tackled the correlation between CO2 production and population. We used a map visualization to compare how these two 
+variables correlated for different countries in 2019. We can see in the CO2 Production map, some of the countries with the highest 
+production include China, the United States, and India. Similarly for the population map, some of the countries with the highest population 
+are China, the United States and India.
+
+![figure1](../../q1.png)
+
+Our second question aimed to address how CO2 production has changed between the years 1990 and 2019. We chose one country from every 
+continent (excluding Antarctica) to compare the change: Australia, Brazil, China, Nigeria, Russian Federation, and the United States. For 
+most of the countries chosen, CO2 had increased. More specifically, CO2 production decreased in the Russian Federation and the United 
+States, while increased in Brazil, China, Nigeria, and Australia.
+![figure2](../../q2.png)
+
+In our third question, we wanted to visualize the correlation between the population and human development index (HDI) of countries. We 
+used an average of the population and HDI over the years for each country for more summarized data for each country and ease of 
+visualization. The slope of the regression line is not very steep, which could indicate that there isn’t too strong of a correlation. While 
+the data is quite scattered at lower population levels, the general trend is that with increasing population, there is a decrease in HDI.
+![figure3](../../q3.png)
+
+Our fourth question addresses the correlation of HDI vs CO2 production, using data from different countries in 2019. The initial trend we 
+see is a rapid increase in the relationship between HDI and CO2 production before the trend ultimately decreases at higher levels of CO2 
+production.
+![figure4](../../q4.png)
+
+## Findings
+
+The results of the first question indicate that there may be an upward trend for population vs CO2 production. In other words, with 
+increased population, there is increased CO2 production. Looking at the most populous countries in 2019, India, China, and the United 
+States, we can see that these are also some of the countries that produce the most CO2. This could be due to an increased use of fossil 
+fuels and machinery to sustain the growing population. However, for the method of visualization used, this trend is only clear for 
+countries that are on the high extreme of both variables. There are many countries with low population and CO2 production but it is hard to 
+compare those countries between one another using a choropleth map where their colors are extremely similar. This plot also only takes into 
+consideration one year, 2019, which could be skewed by worldly events, such as the start of the COVID pandemic, and can ignore trends of 
+growth in CO2 production vs growth in population. Further work plotting and analyzing the correlation between the change in CO2 production 
+and the change in growth as well as for comparing the data between years can be helpful in affirming our results. 
+
+
+Our results for our second question indicated that CO2 production increased between the years 1990 and 2019. There were still some 
+countries that decreased in CO2 production: the Russian Federation and the United States. This may be a result of differences in approaches 
+and views in use of fossil fuels and other processes that produce CO2. However, generally, CO2 production increased in this time range. 
+This could be linked to the increased technological development and transitioning to use of machinery such as vehicles and factories. This 
+conclusion is limited by the fact our plot only displays the results for 1990 and 2019 and none of the years between. This plot could be 
+skewed if a country had happened to have an unusually low or high production for either of the two years compared to the years not 
+displayed. This conclusion is also limited by the low number of countries we chose to analyze. For the ease of visualization, only 6 out of 
+the 168 countries in our dataset were chosen for this analysis. While we did pick countries that have been known to be representative of 
+their continent, this could still skew our results. To enhance our results to this question, one could extend the data used to more 
+countries to determine if there is a more obvious trend. One could also make a histogram of CO2 production over the span of multiple years, 
+not just 1990 and 2019, to see the trend of CO2 production over time and see ranges where CO2 production may rise and fall. 
+
+Our results for our third question imply a generally downward correlation between country population and HDI in 2019. This implies that 
+with a larger population, a country tends to be less developed. This may be due to it being more difficult to distribute technological 
+advances to larger amounts of people. However, the large distribution of countries and various HDIs at lower populations and the small 
+slope of the regression line may indicate that this is not a strong correlation. Similar to the last questions, this plot is limited to 
+just one year. While the size of the dataset used for this plot reduces the chances of outliers affecting the trend by a large amount, the 
+magnitude of the relationship could still change in the time range in our dataset (1990-2019). This is a point future research can cover by 
+comparing the relationship between these variables through the years. This question could also be further analyzed by plotting the change 
+in HDI vs the change in population to see a more direct correlation between the variables with time.
+
+Our final question saw a positive correlation between HDI and CO2 production at low levels of CO2 production but had a negative correlation 
+at higher levels of CO2 production in 2019. The initial positive correlation could mean that as countries develop, they tend to increase in 
+CO2 production. The CO2 production could be due to technological or economic advances. The decreasing HDI along with the rising CO2 
+production could imply that, despite economic or technological progress, it does not necessarily translate into improved living standards 
+for the country. Like question three, this plot is only limited to one year, 2019, and its results may not be representative of other 
+years. Another limitation is that the trend steadily decreases after reaching its peak, which could imply that there is a certain point of 
+CO2 production where HDI decreases. However, the data at higher CO2 production is scarce compared to at lower CO2 production, which could 
+be causing the descending trend. Further comparison of these two variables with other years could help conclude if the trend continues 
+throughout time. If there is data in the future where there are more data points at higher CO2 production to confirm if there is a descent 
+in HDI after a certain point of CO2 production, it could solidify more assumptions. 
+
+
+## Summary
+
+The overall idea that can be gathered from our plots and the final dataset is that the population of a country may not be the best 
+indicator of its CO2 production levels, rather, its HDI (Human Development Index) may be a better indicator. As discussed in the 
+introduction, humans are the main contributors to the extreme CO2 levels in the atmosphere across the world, no matter the country. 
+However, although some may like to believe that the number of people in the world is the main contributor to these excessive levels of CO2 
+emissions, it is actually the various levels of development of humans on Earth that can cause different levels of CO2 emissions. 
+
+In our first plot, we found how the relationship between CO2 production and the population of a country didn’t show a consistent trend for 
+a country’s CO2 production when compared with the population. We also saw how the change in CO2 production levels between 1990 and 2019 
+consistently increased across all of the individual countries we chose, which aimed to represent each continent, confirming that CO2 
+production did increase in general across the globe. Next, in our third plot, we could see how when the population of a country increases, 
+its HDI steadily decreases. This proves how a country with a larger population does not always equate to having a good quality of life for 
+individuals, or a high developmental status. Lastly, our graph showing the relationship between CO2 production and HDI saw an exponential 
+increase in the first half, before it started to decrease as the CO2 production continued to grow. For the first half of the graph, the CO2 
+production increasing with the HDI alludes to how as the development of a country increases, meaning better infrastructure, 
+industrialization, and economic development, the amount of CO2 emitted to the atmosphere could increase exponentially. However, in the 
+latter half of the graph, as the levels of CO2 production get larger, the HDI starts to decrease. An explanation for this is that at the 
+beginning, the rise of CO2 production initially coincided with economic and technological development, but with time, the environmental 
+impacts outweighed the positive effects of development. As CO2 emissions started to rise beyond the level of sustainability, it negatively 
+impacted the environment, leading to a lower quality of life and health.
+
+There were a few limitations in our project. The first is that we used the average population and average HDI levels to plot the graph for 
+the third research question, which could have affected the true relationship between the two variables since the averages could have left 
+out important information about growth and dips between HDI levels and population. Additionally, our data was only calculated up until the 
+year 2019, which makes it a little dated, and it may not accurately depict the state of climate change and global warming in our world 
+today. Because the most recent year is 2019, it also excludes data taken post-COVID-19 – the pandemic could have massively impacted the 
+rate of CO2 production globally, and this data may not reflect that.
+
+With our project, we wanted to figure out the trends and correlations between CO2, HDI, and population. With what was shown, even though it 
+might not be perfect, it can help researchers find solutions to understand the different factors that contribute to the rise in CO2 
+production and how they change over time. By knowing that HDI has a correlation with CO2 production, this can help find solutions to 
+decrease CO2 production overall in all countries by finding more eco-friendly ways to develop.
