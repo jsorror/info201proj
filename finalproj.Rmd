@@ -95,46 +95,59 @@ decrease significantly, which made it easier for us to plot the relationships fo
 
 ## Methods
 
-For this project from the three datasets, we decided to hone in on three subjects of information about countries around the world. These 
-are Co2 Production, Human Development Index, and Population which each came from separate datasets. From each of these datasets we opted to 
-take only one variable to be included for the merged final product in order to be as clean as possible for our final data manipulation to 
-create our plots. We also appreciated the very raw variables we chose because they were easier to manipulate into the secondary 
-(categorical/numerical) variables required for the project.
+For this project from the three datasets, we decided to hone in on three subjects of information about 
+countries around the world. These are Co2 Production, Human Development Index, and Population which each 
+came from separate datasets. From each of these datasets we opted to take only one variable (the yearly 
+measures of co2, hdi, and population) for the merged final product in order to be as clean as possible for 
+our final data manipulation to create our plots.. We also appreciated the very raw variables we chose 
+because they were easier to manipulate into the secondary (categorical/numerical) variables required for 
+the project.
 
-For all of our datasets we need to pivot them from the wide form they currently are in into long form to cleanly display more variables. 
-We’ll make what was once many columns of individual years into one column with all of the years. This variable year in addition to the 
-country name variable that we also have access to in all datasets will be the common variables that allows us to merge it all into one. 
-First in the case of Co2 however we must manipulate the year variable naming convention that originally uses a prefix “co2_prod_” before 
-the actual year information. The same must be done with the human development index dataset that has a similar “hdi_” prefix in front of 
-its column names. To do this we use sub() and assignment to names(<data>) to replace those prefixes with empty (“”) strings before any 
-pivoting of the respective datasets. In the case of the population dataset we also use rename() to rename the variable “Country Name” to be 
-“Country” also to match the other datasets’ naming convention for that variable. This common naming convention for the two variables (year 
-and country) is essential to properly merge the datasets as the code needs the exact same variable name to identify an overlap in different 
-datasets.
+For all of our datasets we need to pivot them from the wide form they currently are in into long form to 
+cleanly display more variables. We’ll make what was once many columns of individual years into one column 
+with all of the years. This variable year in addition to the country code variable that we also have access 
+to in all datasets will be the common variables that allows us to merge it all into one. For all of the 
+datasets we need to make unified the naming conventions for the country code variables (“Country Code”). 
+Individually we also want to make simple the naming convention for all column names that represent a single 
+year's worth of data. Co2 for example has a prefix “co2_prod_” before the year. This is done for Co2 and 
+HDI using sub() and assignment to names(<data>) to replace their respective prefixes with empty (“”) 
+strings before any pivoting of the datasets. In the case of the population dataset we also use rename() to 
+rename the variable “Country Name” to be “Country” for simplicity. 	
 
-Next we need to pivot_longer each of these datasets and remove any extraneous variables not useful to us. For each of these datasets we 
-only focused on the yearly information recorded for each country in its respective subject. For co2 this is production every year so we 
-create a second version of this dataset in longer form, then after that we create a third that strips away extraneous variables. These 
-extraneous variables are ISO3 code, hdi code, region, and hdi rank for 2021. This makes the data cleaner as information like region and 
-ISO3 code will be the same for each country no matter the year and just takes up space in this longer format without additional information 
-provided. This limits us however as we are now unable to make plots based on region for example to group countries, something we have to 
-work around as a limitation. The same is done for population (removing country code) and human development index (removing ISO3, hdi code, 
-region, and rank in 2021). 
+Next we need to pivot_longer each of these datasets and remove any extraneous variables not useful to us. 
+For each of these datasets we only focused on the yearly information recorded for each country in its 
+respective subject. For hdi this is a decimal value index every year so we create a second version of this 
+dataset in longer form, then after that we create a third that strips away extraneous variables. These 
+extraneous variables are hdi code, region, and rank 2021. This makes the data cleaner as information like 
+region will be the same for each country no matter the year and just takes up space in this longer format 
+without additional information provided. This limits us however as we are now unable to make plots based on 
+region for example to group countries, something we decided is not important to the plots we want to make. 
+The same is done for the human development index (hdi code, region, and rank in 2021) and we strip the 
+Country Name variable from both the HDI and Co2 datasets so that we just use the names from the population 
+dataset. There is some difference in country names between the sets so to avoid losing data we just use the 
+names from one.
 
-Finally, we use inner_join() to first combine the co2 and population dataset, then combine that merged dataset with the hdi data into one 
-final one. In doing so we only keep data that has both the same country name and a year of data on file. This means that countries that 
-have varied naming conventions between the datasets are not included in the final merge dataset (for example “Vietnam” vs “Viet Nam”). This 
-was the easiest way to combine the data but makes it so that we don’t have as complete of data as we could, but we work around this by only 
-focusing on specific countries that we know we have adequate data on for our plots later on. With this final dataset we make some final 
-decisions. We create a co2 index variable (categorical) and an average population variable (numerical) to additionally measure our data. We 
-do this ignoring rows with N/A values in the respective original variable. We also make sure to mutate() our year variable to be numeric as 
-opposed to a string.
+Finally, we use inner_join() to first combine the co2 and population dataset, then combine that merged 
+dataset with the hdi data into one final one. In doing so we only keep data that has both the same country 
+code and a year of data on file. This allows us to keep the most data possible from out different sets as 
+the country codes are the same between each of the datasets. Though they each have different ranges of time 
+that they cover. Thus where co2 has data up until 2019 as opposed to the other two that go up until 2021. 
+We end up losing the data for those non-similar years but this doesn’t affect us too much because we 
+wouldn’t want to have information we can’t compare with anything anyways. 
 
-As for our sample chosen, when making out plots we decided to focus only on some specific countries as mentioned before. This is because 
-with the country loss in merging, any overall plotting would be difficult to be sure of accuracy. Also that much information is very 
-overwhelming visually with the couple hundred countries we have data on. We chose one country from each continent (Australia, Brazil, 
-China, France, Nigeria, and the United States) which are all nations that have the highest population per continent which allows us to 
-better analyze co2 production in all continents.
+With this final dataset we make some final decisions. We create a co2 index variable (categorical) and an 
+average population variable (numerical) to additionally measure our data. We do this ignoring rows with N/A 
+values in the respective original variable. We also make sure to mutate() our year variable to be numeric 
+as opposed to a string.
+
+As for our sample chosen, when making the bar chart we decided to focus only on some specific countries. 
+This is for simplicity of display and audience understanding as we have a lot of countries that  could be 
+represented. This bar chart gives a snapshot with one country from each continent to get a general idea of 
+how the leading countries in each region compare to each other as Australia, Brazil, China, Russia, and 
+Nigeria all have the highest populations in their respective countries. All the other plots we created use 
+the entirety of our data excluding any n/a values if there were any. We did not end up using any complex 
+statistical methods.
+
 
 ## Results
 
