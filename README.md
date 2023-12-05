@@ -7,21 +7,22 @@ relate to it over the years 1990 and 2019. CO2 production has been a big problem
 in our world for many years as CO2 emissions are directly related to global 
 warming. Humans are the main source for the CO2 emissions in the world, from 
 mostly fossil fuels deforestation and cement production. The more CO2 we produce,
-the more severe global warming will get. In our data, by using various different
-graphs, we compare CO2, population, and HDI. First, we compare CO2 with population
-in 2019 to see the correlation between them if there is one. We found that there 
-is not a definite trend between population and the amount of CO2 produced or one
-that we would expect. Then we compare the CO2 production in the highest populated
-country from each continent (Australia, Russian Federation, Nigeria, Brazil, China,
-and the United States) between 1990 and 2019 to see the trend of CO2 production.
-Comparing the production in these countries the graph shows that there is an
-overall increase in CO2 production in the past 30 years. Next, we compare
-population with HDI and we are able to conclude that there is a slight decrease
-between the two factors. Finally we compare HDI with CO2 in 2019 and there is a
-logarithmic growth curve which increases and then decreases after a certain point.
-This makes sense since humans are the main source of CO2 emissions but just because
-after a certain point, the effects from CO2 emissions will negatively impact the
-environment and decrease the development.
+the more severe global warming will get. 
+  In our data, by using various different graphs, we compare CO2, population, and
+HDI. First, we compare CO2 with population in 2019 to see the correlation between
+them if there is one. We found that there is not a definite trend between
+population and the amount of CO2 produced or one that we would expect. Then we
+compare the CO2 production in the highest populated country from each continent
+(Australia, Russian Federation, Nigeria, Brazil, China, and the United States)
+between 1990 and 2019 to see the trend of CO2 production. Comparing the 
+production in these countries the graph shows that there is an overall increase 
+in CO2 production in the past 30 years. Next, we compare population with HDI and 
+we are able to conclude that there is a slight decrease between the two factors.
+Finally we compare HDI with CO2 in 2019 and there is a logarithmic growth curve
+which increases and then decreases after a certain point. This makes sense since
+humans are the main source of CO2 emissions but just because after a certain point,
+the effects from CO2 emissions will negatively impact the environment and decrease
+the development.
 
 ## Who is the audience?
 
@@ -32,3 +33,4 @@ atmosphere but using our graphs, researchers can conclude the different reasons
 that factor into the production of CO2. Using this data can help researchers figure
 out different strategies to help lower the amount of CO2 being produced and find
 solutions to global warming in the long run.
+
