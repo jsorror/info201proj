@@ -79,7 +79,7 @@ everything was discovered and sought out clearly.
 
 
 In our final dataset, each row represents the CO2 production levels, population, HDI, and the CO2 Index for a country in a certain year. We 
-have 4,980 observations in our dataset. The relevant variables are “Country”, which is the country’s name, “Year”, with years spanning from 
+have 4,980 observations in our dataset. The relevant variables are “Country”, which is the country’s name, “Country Code”, containing the three-letter country code, “Year”, with years spanning from 
 1990 to 2019, “CO2 Production”, depicting the total carbon emissions in a country in a certain year, “Population”, which states the total 
 country population in a given year, “HDI”, which depicts the HDI for a country in a given year, “CO2Index”, which is a categorical variable 
 that gives a certain index of a country’s CO2 level depending on where it falls in our caliber (3,569,073 kt and below = “Low”, 3,569,074 
