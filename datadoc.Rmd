@@ -13,8 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Original Data Sources:
 
-We used two datasets to create our final merged one. These datasets are titled, “World
-Population by Countries” and “Global Socio-Economic and Environmental Indicators”. Our
+We used three datasets to create our final merged one. These datasets are titled, “World
+Population by Countries”, “Global Socio-Economic and Environmental Indicators”, and "CO2 Emissions". Our
 datasets originated from the platform “Kaggle”. The world population dataset is owned by the
 user, “ASHWIN.S” and was sourced from the website data.worldbank.org. The data was also
 cleaned using Pandas. The global socio-economic and environmental indicators dataset is owned
@@ -23,19 +23,19 @@ and was collected with web scripting. The CO2 Emissions dataset is owned by the
 user, Urik Thyge Pedersen, and was sourced from the website
 https://data.nasdaq.com/databases/WB/data as well as the United Nations
 Framework Convention on Climate Change (UNFCCC) and the International Energy
-Agency (IEA)
+Agency (IEA).
 
 ## Variables
 
 The variables we included in our final merged dataset are “Country”, which is
-the country’s name, “Year”, with years spanning from 1990 to 2021, “CO2
-Production”, depicting the total carbon emissions in a country in a certain
-year, “Population”, which states the total country population in a given year,
-“HDI”, which depicts the HDI for a country in a given year, “CO2Index”, which is
-a categorical variable that gives a certain index of a country’s CO2 level
-depending on where it falls in our caliber (3,569,073 kt and below = “Low”,
-3,569,074 kt to 7,138,146 = “Middle”, and 7,138,147 kt and above = “High”),
-“AvgCO2”, which is a numerical variable that gives the calculated average CO2
+the country’s name, "Country Code", which is the three-letter country code, 
+“Year”, with years spanning from 1990 to 2021, “CO2 Production”, depicting the
+total carbon emissions in a country in a certain year, “Population”, which states 
+the total country population in a given year, “HDI”, which depicts the HDI for a 
+country in a given year, “CO2Index”, which is a categorical variable that gives a 
+certain index of a country’s CO2 level depending on where it falls in our caliber 
+(3,569,073 kt and below = “Low”, 3,569,074 kt to 7,138,146 = “Middle”, and 7,138,147 kt 
+and above = “High”), “AvgCO2”, which is a numerical variable that gives the calculated average CO2
 production for a certain country across all years, and finally, “AvgPop”, which
 is a numerical variable that gives the calculated average population for a
 certain country across all years.
