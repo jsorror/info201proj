@@ -32,9 +32,9 @@ since CO2 is well mixed in the atmosphere and it remains in the atmosphere for t
 As mentioned before, our project focuses on CO2 and how it is affected by human development and population. More specifically we delve into
 the correlation between CO2 production and population of a country since it is known that people are the main contributors for the CO2 in
 the atmosphere, so how does the population affect it? Next, we compare the CO2 production in a country from each continent from 1990 and 
-2021. This is to see how CO2 has changed in the past 30 years and how it is different for each country. Then we compare the Human 
+2019. This is to see how CO2 has changed in the past 30 years and how it is different for each country. Then we compare the Human 
 Development Index (HDI) and the population of a country to observe how population can affect human development or if it affects it all.
-Finally, we compare HDI with the CO2 production in 2021 since cement production and fossil fuel burning are strong contributors of the CO2 
+Finally, we compare HDI with the CO2 production in 2019 since cement production and fossil fuel burning are strong contributors of the CO2 
 in the atmosphere. So, how does the development of humans correlate with the CO2 production, if there is any?
 
 CO2 production and human development are interesting topics and are something everyone needs to know about because this process of climate
@@ -80,7 +80,7 @@ everything was discovered and sought out clearly.
 
 In our final dataset, each row represents the CO2 production levels, population, HDI, and the CO2 Index for a country in a certain year. We 
 have 4,980 observations in our dataset. The relevant variables are “Country”, which is the country’s name, “Year”, with years spanning from 
-1990 to 2021, “CO2 Production”, depicting the total carbon emissions in a country in a certain year, “Population”, which states the total 
+1990 to 2019, “CO2 Production”, depicting the total carbon emissions in a country in a certain year, “Population”, which states the total 
 country population in a given year, “HDI”, which depicts the HDI for a country in a given year, “CO2Index”, which is a categorical variable 
 that gives a certain index of a country’s CO2 level depending on where it falls in our caliber (3,569,073 kt and below = “Low”, 3,569,074 
 kt to 7,138,146 = “Middle”, and 7,138,147 kt and above = “High”), “AvgCO2”, which is a numerical variable that gives the calculated average 
@@ -99,14 +99,14 @@ For this project from the three datasets, we decided to hone in on three subject
 countries around the world. These are Co2 Production, Human Development Index, and Population which each 
 came from separate datasets. From each of these datasets we opted to take only one variable (the yearly 
 measures of co2, hdi, and population) for the merged final product in order to be as clean as possible for 
-our final data manipulation to create our plots.. We also appreciated the very raw variables we chose 
+our final data manipulation to create our plots. We also appreciated the very raw variables we chose 
 because they were easier to manipulate into the secondary (categorical/numerical) variables required for 
 the project.
 
-For all of our datasets we need to pivot them from the wide form they currently are in into long form to 
+For all of our datasets, we need to pivot them from the wide form they currently are in into long form to 
 cleanly display more variables. We’ll make what was once many columns of individual years into one column 
 with all of the years. This variable year in addition to the country code variable that we also have access 
-to in all datasets will be the common variables that allows us to merge it all into one. For all of the 
+to in all datasets will be the common variables that allow us to merge it all into one. For all of the 
 datasets we need to make unified the naming conventions for the country code variables (“Country Code”). 
 Individually we also want to make simple the naming convention for all column names that represent a single 
 year's worth of data. Co2 for example has a prefix “co2_prod_” before the year. This is done for Co2 and 
@@ -129,7 +129,7 @@ names from one.
 
 Finally, we use inner_join() to first combine the co2 and population dataset, then combine that merged 
 dataset with the hdi data into one final one. In doing so we only keep data that has both the same country 
-code and a year of data on file. This allows us to keep the most data possible from out different sets as 
+code and a year of data on file. This allows us to keep the most data possible from our different sets as 
 the country codes are the same between each of the datasets. Though they each have different ranges of time 
 that they cover. Thus where co2 has data up until 2019 as opposed to the other two that go up until 2021. 
 We end up losing the data for those non-similar years but this doesn’t affect us too much because we 
@@ -141,10 +141,10 @@ values in the respective original variable. We also make sure to mutate() our ye
 as opposed to a string.
 
 As for our sample chosen, when making the bar chart we decided to focus only on some specific countries. 
-This is for simplicity of display and audience understanding as we have a lot of countries that  could be 
+This is for simplicity of display and audience understanding as we have a lot of countries that could be 
 represented. This bar chart gives a snapshot with one country from each continent to get a general idea of 
-how the leading countries in each region compare to each other as Australia, Brazil, China, Russia, and 
-Nigeria all have the highest populations in their respective countries. All the other plots we created use 
+how the leading countries in each region compare to each other as Australia, Brazil, China, Russia, the United
+States and Nigeria all have the highest populations in their respective countries. All the other plots we created use 
 the entirety of our data excluding any n/a values if there were any. We did not end up using any complex 
 statistical methods.
 
